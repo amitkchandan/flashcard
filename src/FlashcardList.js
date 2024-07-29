@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
-import FlashcardItem from './FlashcardItem';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import './style.css'
+import FlashcardItem from './FlashcardItem'; // Import your FlashcardItem component
 
 const FlashcardList = ({ category }) => {
   const allFlashcards = [
-    { category: 'javascript', question: 'Enterprise Environmental Factors project team', answer: 'Factors that affect the project but are not in control of' },
-    { category: 'react', question: 'Organizational process assets', answer: 'Internal factors that affect the project' },
-    { category: 'css', question: 'Project Management Body of Knowledge ', answer: 'A guide describing knowledge within the' },
     {
       "category": "A",
       "question": "What are Enterprise Environmental Factors?",
@@ -1043,19 +1039,20 @@ const FlashcardList = ({ category }) => {
                 "question": "What is Funding Limit Reconciliation?",
                 "answer": "The process of comparing the planned expenditure of project funds against any limits on the commitment of funds for the project to identify any variances between the funding limits and the planned expenditure."
               }
-            
-            
-          
-          
-      
-
-   
-    // Add more flashcards here
   ];
 
   const flashcards = category ? allFlashcards.filter(card => card.category === category) : allFlashcards;
   const [currentPage, setCurrentPage] = useState(0);
-  const cardsPerPage = 1; 
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(-1); // Initializing to -1 to handle the first question correctly
+  const cardsPerPage = 1;
+  const [score, setScore] = useState(() => {
+    const savedScore = localStorage.getItem('score');
+    return savedScore !== null ? parseInt(savedScore, 10) : 0;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('score', score);
+  }, [score]);
 
   const handleNextClick = () => {
     if ((currentPage + 1) * cardsPerPage < flashcards.length) {
@@ -1069,25 +1066,54 @@ const FlashcardList = ({ category }) => {
     }
   };
 
+  const handleKnowClick = () => {
+    if (currentQuestionIndex !== currentPage) {
+      setScore(score + 1);
+      setCurrentQuestionIndex(currentPage);
+    }
+    handleNextClick();
+  };
+
+  const handleDontKnowClick = () => {
+    if (currentQuestionIndex !== currentPage) {
+      if (score > 0) {
+        setScore(score - 1);
+      }
+      setCurrentQuestionIndex(currentPage);
+    }
+    handleNextClick();
+  };
+
   const currentFlashcards = flashcards.slice(currentPage * cardsPerPage, (currentPage + 1) * cardsPerPage);
 
   return (
     <Container>
-      <Row className="justify-content-center" > 
+      <Row className="justify-content-center">
         {currentFlashcards.map((flashcard, index) => (
           <Col key={index} style={{ height: '130px' }} md={6} lg={4} className="mb-3">
-            <FlashcardItem   question={flashcard.question} answer={flashcard.answer} />
+            <FlashcardItem question={flashcard.question} answer={flashcard.answer} />
           </Col>
         ))}
       </Row>
       <Row className="justify-content-center">
-        <Col className="text-center" style={{ marginTop: '100px' }}>
+        <Col className="text-center">
           <Button onClick={handlePreviousClick} disabled={currentPage === 0} style={{ marginRight: '10px' }}>
             Previous
           </Button>
-          <Button onClick={handleNextClick} disabled={(currentPage + 1) * cardsPerPage >= flashcards.length}>
+          <Button onClick={handleKnowClick} style={{ marginTop: '150px', marginRight: '200px' }}>
+            I Know This
+          </Button>
+          <Button onClick={handleDontKnowClick} style={{ marginTop: '150px' }}>
+            I Don't Know This
+          </Button>
+          <Button onClick={handleNextClick} disabled={(currentPage + 1) * cardsPerPage >= flashcards.length} style={{ marginLeft: '10px' }}>
             Next
           </Button>
+        </Col>
+      </Row>
+      <Row className="justify-content-center">
+        <Col className="text-center" style={{ marginTop: '20px' }}>
+          <h4>Score: {score}</h4>
         </Col>
       </Row>
     </Container>
