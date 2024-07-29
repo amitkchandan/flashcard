@@ -1055,7 +1055,7 @@ const FlashcardList = ({ category }) => {
 
   const flashcards = category ? allFlashcards.filter(card => card.category === category) : allFlashcards;
   const [currentPage, setCurrentPage] = useState(0);
-  const cardsPerPage = 1;
+  const cardsPerPage = 1; 
 
   const handleNextClick = () => {
     if ((currentPage + 1) * cardsPerPage < flashcards.length) {
