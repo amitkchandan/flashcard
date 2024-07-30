@@ -33,7 +33,7 @@ function App() {
                 {/* Add more categories as needed */}
               </FormControl>
             </Form>
-            <Button variant="outline-success" onClick={handleGenerate} className="ml-2">Generate</Button>
+            
           </Nav>
         </Navbar.Collapse>
       </Navbar>

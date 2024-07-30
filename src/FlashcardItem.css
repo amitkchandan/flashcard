@@ -70,4 +70,7 @@
   .back {
     transform: rotateY(180deg);
   }
-  
+  h4{
+     margin-top: -550px;
+     margin-left: 700px;
+  }
