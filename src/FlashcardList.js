@@ -1040,84 +1040,101 @@ const FlashcardList = ({ category }) => {
                 "answer": "The process of comparing the planned expenditure of project funds against any limits on the commitment of funds for the project to identify any variances between the funding limits and the planned expenditure."
               }
   ];
+//   
+const flashcards = category ? allFlashcards.filter(card => card.category === category) : allFlashcards;
 
-  const flashcards = category ? allFlashcards.filter(card => card.category === category) : allFlashcards;
-  const [currentPage, setCurrentPage] = useState(0);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(-1); // Initializing to -1 to handle the first question correctly
-  const cardsPerPage = 1;
-  const [score, setScore] = useState(() => {
-    const savedScore = localStorage.getItem('score');
-    return savedScore !== null ? parseInt(savedScore, 10) : 0;
-  });
+const [currentPage, setCurrentPage] = useState(0);
+const cardsPerPage = 1;
+const [score, setScore] = useState(() => {
+  const savedScore = localStorage.getItem('score');
+  return savedScore !== null ? parseInt(savedScore, 10) : 0;
+});
+const [lastClicked, setLastClicked] = useState(null); // Track last clicked button
+const [isFlipped, setIsFlipped] = useState(false); // Track flip state
 
-  useEffect(() => {
-    localStorage.setItem('score', score);
-  }, [score]);
+useEffect(() => {
+  localStorage.setItem('score', score);
+}, [score]);
 
-  const handleNextClick = () => {
-    if ((currentPage + 1) * cardsPerPage < flashcards.length) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
+const handleNextClick = () => {
+  if ((currentPage + 1) * cardsPerPage < flashcards.length) {
+    setCurrentPage(currentPage + 1);
+  }
+  setIsFlipped(false); // Reset flip state
+};
 
-  const handlePreviousClick = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
+const handlePreviousClick = () => {
+  if (currentPage > 0) {
+    setCurrentPage(currentPage - 1);
+  }
+  setIsFlipped(false); // Reset flip state
+};
 
-  const handleKnowClick = () => {
-    if (currentQuestionIndex !== currentPage) {
-      setScore(score + 1);
-      setCurrentQuestionIndex(currentPage);
-    }
-    handleNextClick();
-  };
+const handleKnowClick = () => {
+  setScore(score + 1);
+  setLastClicked('know'); // Mark 'I Know This' button as clicked
+  handleNextClick();
+};
 
-  const handleDontKnowClick = () => {
-    if (currentQuestionIndex !== currentPage) {
-      if (score > 0) {
-        setScore(score - 1);
-      }
-      setCurrentQuestionIndex(currentPage);
-    }
-    handleNextClick();
-  };
+const handleDontKnowClick = () => {
+  if (score > 0) {
+    setScore(score - 1);
+  }
+  setLastClicked('dontKnow'); // Mark 'I Don't Know This' button as clicked
+  handleNextClick();
+};
 
-  const currentFlashcards = flashcards.slice(currentPage * cardsPerPage, (currentPage + 1) * cardsPerPage);
+const currentFlashcards = flashcards.slice(currentPage * cardsPerPage, (currentPage + 1) * cardsPerPage);
 
-  return (
-    <Container>
-      <Row className="justify-content-center">
-        {currentFlashcards.map((flashcard, index) => (
-          <Col key={index} style={{ height: '130px' }} md={6} lg={4} className="mb-3">
-            <FlashcardItem question={flashcard.question} answer={flashcard.answer} />
-          </Col>
-        ))}
-      </Row>
-      <Row className="justify-content-center">
-        <Col className="text-center">
-          <Button onClick={handlePreviousClick} disabled={currentPage === 0} style={{ marginRight: '10px' }}>
-            Previous
-          </Button>
-          <Button onClick={handleKnowClick} style={{ marginTop: '150px', marginRight: '200px' }}>
+return (
+  <Container className="d-flex flex-column justify-content-center align-items-center vh-100">
+    <Row className="justify-content-center mb-4">
+   
+      {currentFlashcards.map((flashcard, index) => (
+        <Col key={index} md={8} lg={6} className="d-flex justify-content-center">
+          <FlashcardItem
+            question={flashcard.question}
+            answer={flashcard.answer}
+            flipped={isFlipped}
+            toggleFlip={() => setIsFlipped(!isFlipped)}
+          />
+        </Col>
+      ))}
+    </Row>
+    <Row className="justify-content-center">
+      <Col className="text-center">
+        <div className="d-flex flex-column align-items-center">
+          <Button
+            onClick={handleKnowClick}
+            style={{
+              backgroundColor: lastClicked === 'know' ? 'green' : '',
+              color: 'white',
+              marginBottom: '10px',
+              width: '150px'
+            }}
+          >
             I Know This
           </Button>
-          <Button onClick={handleDontKnowClick} style={{ marginTop: '150px' }}>
+          <Button
+            onClick={handleDontKnowClick}
+            style={{
+              backgroundColor: lastClicked === 'dontKnow' ? 'red' : '',
+              color: 'white',
+              width: '150px'
+            }}
+          >
             I Don't Know This
           </Button>
-          <Button onClick={handleNextClick} disabled={(currentPage + 1) * cardsPerPage >= flashcards.length} style={{ marginLeft: '10px' }}>
-            Next
-          </Button>
-        </Col>
-      </Row>
-      <Row className="justify-content-center">
-        <Col className="text-center" style={{ marginTop: '20px' }}>
-          <h4>Score: {score}</h4>
-        </Col>
-      </Row>
-    </Container>
-  );
+        </div>
+      </Col>
+    </Row>
+    <Row className="justify-content-center">
+      <Col className="text-center" style={{ marginTop: '20px' }}>
+        <h4>Your Score: {score}</h4>
+      </Col>
+    </Row>
+  </Container>
+);
 };
 
 export default FlashcardList;
