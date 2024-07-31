@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import FlashcardList from './FlashcardList';
 import { Container, Navbar, Nav, Form, FormControl, Button, Row, Col } from 'react-bootstrap';
 import './style.css';
+import './App.css'
 
 function App() {
   const [category, setCategory] = useState('');
@@ -18,7 +19,9 @@ function App() {
   return (
     <Container className="mt-5">
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#">PMP® concept Flashcard</Navbar.Brand>
+        <Navbar.Brand className='header-name' href="#">
+
+           Flashcard</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
@@ -37,9 +40,9 @@ function App() {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <Row className="justify-content-center mt-3">
+      <Row className="justify-content-center mt-6 vh-100">
         <Col md={8}>
-          <h1 className="text-center">PMP® concept Flashcard </h1>
+          <h1 className="text-center mt-4">PMP® concept Flashcard </h1>
          
           <FlashcardList category={category} />
         </Col>

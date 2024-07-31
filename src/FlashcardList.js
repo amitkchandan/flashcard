@@ -1087,7 +1087,7 @@ const flashcards = category ? allFlashcards.filter(card => card.category === cat
   const currentFlashcards = flashcards.slice(currentPage * cardsPerPage, (currentPage + 1) * cardsPerPage);
 
   return (
-    <Container className="d-flex flex-column justify-content-center align-items-center vh-100">
+    <Container className="d-flex  flex-column justify-content-center align-items-center vh-100">
       <Row className="justify-content-center mb-4">
         {currentFlashcards.map((flashcard, index) => (
           <Col key={index} md={8} lg={6} className="d-flex justify-content-center">
@@ -1102,13 +1102,13 @@ const flashcards = category ? allFlashcards.filter(card => card.category === cat
       </Row>
       <Row className="justify-content-center">
         <Col className="text-center">
-          <div className="d-flex flex-column align-items-center">
+          <div className="d-flex  gap-5 align-items-center">
             <Button
               onClick={handleKnowClick}
               style={{
                 backgroundColor: lastClicked === 'know' ? 'green' : '',
                 color: 'white',
-                marginBottom: '10px',
+
                 width: '150px',
                 border: 'none'
               }}
@@ -1120,7 +1120,6 @@ const flashcards = category ? allFlashcards.filter(card => card.category === cat
               style={{
                 backgroundColor: lastClicked === 'dontKnow' ? 'red' : '',
                 color: 'white',
-                width: '150px',
                  border: 'none'
               }}
             >
@@ -1128,12 +1127,13 @@ const flashcards = category ? allFlashcards.filter(card => card.category === cat
             </Button>
           </div>
         </Col>
-      </Row>
+      </Row> 
       <Row className="justify-content-center">
         <Col className="text-center" style={{ marginTop: '20px' }}>
           <h4>Your Score: {score}</h4>
         </Col>
       </Row>
+
     </Container>
   );
 };
