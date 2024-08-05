@@ -1,9 +1,13 @@
-*{
-  font-family: poppins;
-}
+
 
 .navbar-nav {
   flex-direction: row;
+}
+.navbar{
+  padding: 10px;
+  border-radius: 10px;
+  padding-right: 30px;
+  padding-left: 20px;
 }
 
 .navbar-nav .form-inline {
@@ -37,16 +41,16 @@ button.navbar-toggler + .navbar-collapse {
   margin-right: 10px;
 }
 .flashcard {
-  width: 500px; /* Adjust this value to increase the width */
+  width: 600px; /* Adjust this value to increase the width */
   height: 200px; /* You can adjust the height as well */
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.3s;
   display: flex;
-  
+
 }
 .flashcard .front {
-  background-color: #afe4b0; /* Change this to your desired front color */
+ /* Change this to your desired front color */
   border: 1px solid #7091b2;
   border-radius: 0.25rem;
   cursor: pointer;
@@ -54,9 +58,9 @@ button.navbar-toggler + .navbar-collapse {
 .flashcard .back {
   transform: rotateY(180deg);
 /* Change this to your desired back color */
-  border: 1px solid hsl(131, 47%, 68%);
+  border: 1px solid hsl(0, 0%, 100%);
   border-radius: 0.25rem;
-  color: hsl(0, 46%, 62%); /* White text for better contrast */
+  /* White text for better contrast */
 }
 .flashcard-wrapper {
   display: flex;

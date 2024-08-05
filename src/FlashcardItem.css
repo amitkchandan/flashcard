@@ -1,61 +1,29 @@
+/* FlashcardItem.css */
+
+* {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  
+}
+
 .flashcard-container {
+ 
   perspective: 1000px;
-  height: auto;
-  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .flashcard {
-  width: 250%;
-
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.3s;
-  display: flex;
-
-}
-
-.flashcard.flipped {
-  transform: rotateY(180deg);
-}
-
-.flashcard .front, .flashcard .back {
-  position: absolute;
   width: 100%;
- 
-  backface-visibility: hidden;
-  top: 0;
-  left: 0;
- 
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  position: relative;
 }
-
-.flashcard .front {
-  background-color: hsl(207, 60%, 97%);
-  border: 1px solid #dee2e6;
-  border-radius: 0.25rem;
-  cursor: pointer;
-
-}
-
-.flashcard .back {
-  transform: rotateY(180deg);
-  background-color: #e1e6ec;
-  border: 1px solid #dee2e6;
-  border-radius: 0.25rem;
-}
-.cards{
-
-  height: 200px;
-  display: flex;
-  gap: 10px;
-  
-  
-}
-/* .flashcard-container {
-  perspective: 1000px;
-}
- */
-
-
 
 .flashcard.flipped {
   transform: rotateY(180deg);
@@ -64,15 +32,151 @@
 .front, .back {
   position: absolute;
   width: 100%;
+  height: 100%;
   backface-visibility: hidden;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 }
 
 .back {
   transform: rotateY(180deg);
 }
-h4{
-   margin-top: -465px;
-   color: #0091ff;
-  
+
+.card-title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
 }
 
+.card-text {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.card-img {
+  width: 80px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 576px) {
+  .flashcard-container {
+    max-width: 300px;
+  }
+
+  .front, .back {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .card-title {
+    font-size: 1.2em;
+  }
+
+  .card-text {
+    font-size: 1em;
+  }
+
+  .card-img {
+    width: 60px;
+  }
+}
+/* FlashcardList.css */
+
+.container-full-height {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.col {
+  display: flex;
+  justify-content: center;
+  flex-basis: 100%;
+  max-width: 100%;
+}
+
+.col-md-8 {
+  flex: 0 0 66.666667%;
+  max-width: 66.666667%;
+}
+
+.col-lg-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.btn-container {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  color: white;
+
+  cursor: pointer;
+}
+
+.btn-know {
+  background-color: green;
+}
+
+.btn-dont-know {
+  background-color: red;
+}
+
+.btn-normal {
+  background-color: #009dff; /* Default color */
+}
+
+.btn:hover {
+  background-color: #007acc; /* Slightly darker blue for hover state */
+}
+
+.btn-know:hover,
+.btn-dont-know:hover {
+  background-color: inherit; /* Keeps the color unchanged */
+}
+
+.margin-top-20 {
+  margin-top: 20px;
+  position: absolute;
+  top: 200px;
+}
+
+@media (max-width: 576px) {
+  .btn-container {
+ 
+    gap: 10px;
+  }
+
+  .col-md-8,
+  .col-lg-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .margin-top-20{
+margin-top: 100px;
+  }
+}
