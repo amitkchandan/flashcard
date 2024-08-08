@@ -30,7 +30,7 @@ button.navbar-toggler + .navbar-collapse {
 /* FlashcardList.css */
 
 .flashcard-item {
-  height: 150px; /* Ensure all cards have the same height */
+  height: 170px; /* Ensure all cards have the same height */
 }
 
 .button-container {
@@ -41,7 +41,7 @@ button.navbar-toggler + .navbar-collapse {
   margin-right: 10px;
 }
 .flashcard {
-  width: 600px; /* Adjust this value to increase the width */
+  width: 750px; /* Adjust this value to increase the width */
   height: 200px; /* You can adjust the height as well */
   position: relative;
   transform-style: preserve-3d;
@@ -69,4 +69,8 @@ button.navbar-toggler + .navbar-collapse {
 }
 .flashcard-buttons {
   margin-top: 0.5rem; /* Adjust the spacing between the flashcard and buttons */
+}
+h1{
+  font-family: Calibri;
+  font-weight: 600;
 }

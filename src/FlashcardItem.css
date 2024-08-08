@@ -7,10 +7,10 @@
 
 .flashcard-container {
  
-  perspective: 1000px;
-  width: 100%;
-  max-width: 400px;
-  margin: auto;
+  perspective: 2000px;
+  max-height: 2000px;
+  max-width: 550px;
+  margin-top: -160px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,9 +18,9 @@
 }
 
 .flashcard {
-  width: 100%;
-  height: 100%;
-  transition: transform 0.8s;
+  width: 1000px;
+  height: 1000%;
+  transition: transform 0.5s;
   transform-style: preserve-3d;
   position: relative;
 }
@@ -41,11 +41,12 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 20px ;
 }
 
 .back {
   transform: rotateY(180deg);
+margin-right: 100px;
 }
 
 .card-title {
@@ -131,10 +132,10 @@
 }
 
 .btn {
-  padding: 10px 20px;
+  padding: 10px 50px;
   border: none;
   color: white;
-
+ background-color: #009dff; 
   cursor: pointer;
 }
 
@@ -147,17 +148,9 @@
 }
 
 .btn-normal {
-  background-color: #009dff; /* Default color */
+background-color: #009dff;
 }
 
-.btn:hover {
-  background-color: #007acc; /* Slightly darker blue for hover state */
-}
-
-.btn-know:hover,
-.btn-dont-know:hover {
-  background-color: inherit; /* Keeps the color unchanged */
-}
 
 .margin-top-20 {
   margin-top: 20px;
