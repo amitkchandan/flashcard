@@ -1042,109 +1042,125 @@ const FlashcardList = ({ category }) => {
               }
   ];
   const flashcards = category ? allFlashcards.filter(card => card.category === category) : allFlashcards;
-const [currentPage, setCurrentPage] = useState(0);
-const cardsPerPage = 1;
-const [score, setScore] = useState(() => {
-  const savedScore = localStorage.getItem(`score-${category}`);
-  return savedScore !== null ? parseInt(savedScore, 10) : 0;
-});
-const [lastClicked, setLastClicked] = useState(null);
-const [isFlipped, setIsFlipped] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const cardsPerPage = 1;
+  const [score, setScore] = useState(() => {
+    const savedScore = localStorage.getItem(`score-${category}`);
+    return savedScore !== null ? parseInt(savedScore, 10) : 0;
+  });
+  const [isFlipped, setIsFlipped] = useState(false);
 
-useEffect(() => {
-  localStorage.setItem(`score-${category}`, score);
-}, [score, category]);
+  useEffect(() => {
+    localStorage.setItem(`score-${category}`, score);
+  }, [score, category]);
 
-const handleNextClick = () => {
-  if ((currentPage + 1) * cardsPerPage < flashcards.length) {
-    setCurrentPage(currentPage + 1);
-  }
-  setIsFlipped(false); // Ensure the card is not flipped when moving to the next question
-};
+  const handleNextClick = () => {
+    if ((currentPage + 1) * cardsPerPage < flashcards.length) {
+      setCurrentPage(currentPage + 1);
+      setIsFlipped(false); // Ensure the card is not flipped when moving to the next question
+    }
+  };
 
-const handlePreviousClick = () => {
-  if (currentPage > 0) {
-    setCurrentPage(currentPage - 1);
-  }
-  setIsFlipped(false);
-};
+  const handlePreviousClick = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+      setIsFlipped(false);
+    }
+  };
 
-const handleKnowClick = () => {
-  setScore(score + 1);
-  setLastClicked('know');
-  setIsFlipped(false); // Ensure the card is flipped to show the next question
-  handleNextClick();
-};
+  const handleKnowClick = () => {
+    setScore(score + 1);  // Increase the score when "I Know This" is clicked
+    setIsFlipped(true);   // Flip the card to show the answer
+  };
 
-const handleDontKnowClick = () => {
-  setLastClicked('dontKnow');
-  setIsFlipped(false); // Ensure the card is flipped to show the next question
-  handleNextClick();
-};
+  const handleDontKnowClick = () => {
+    setIsFlipped(true);   // Flip the card to show the answer
+  };
 
-const currentFlashcards = flashcards.slice(currentPage * cardsPerPage, (currentPage + 1) * cardsPerPage);
+  const currentFlashcards = flashcards.slice(currentPage * cardsPerPage, (currentPage + 1) * cardsPerPage);
 
-// Calculate total score out of total number of flashcards
-const totalFlashcards = flashcards.length;
-
-return (
-  <div className="container-full-height">
-    <div className="row mb-4">
-      {currentFlashcards.map((flashcard, index) => (
-        <div key={index} className="col col-md-8 col-lg-6">
-          <FlashcardItem
-            serialNumber={currentPage * cardsPerPage + index + 1}
-            question={flashcard.question}
-            answer={flashcard.answer}
-            flipped={isFlipped}
-            toggleFlip={() => setIsFlipped(!isFlipped)}
-          />
+  return (
+    <div className="container-full-height">
+      <div className="row mb-4">
+        {currentFlashcards.map((flashcard, index) => (
+          <div key={index} className="col col-md-8 col-lg-6">
+            <FlashcardItem
+              serialNumber={currentPage * cardsPerPage + index + 1}
+              question={flashcard.question}
+              answer={flashcard.answer}
+              flipped={isFlipped}
+              toggleFlip={() => setIsFlipped(!isFlipped)}
+            />
+          </div>
+        ))}
+      </div>
+      <div className="row">
+        <div className="col text-center">
+          <div className="btn-container">
+            <button
+              onClick={handlePreviousClick}
+              style={{
+                backgroundColor: 'blue',
+                color: 'white',
+                margin: '5px',
+                padding: '10px 20px',
+                border: 'none',
+                borderRadius: '5px',
+                marginLeft: '180px',
+              }}
+            >
+              Previous
+            </button>
+            <button
+              onClick={handleKnowClick}
+              style={{
+                backgroundColor: 'green',
+                color: 'white',
+                margin: '5px',
+                padding: '10px 20px',
+                border: 'none',
+                borderRadius: '5px',
+              }}
+            >
+              I Know This
+            </button>
+            <button
+              onClick={handleDontKnowClick}
+              style={{
+                backgroundColor: 'red',
+                color: 'white',
+                margin: '5px',
+                padding: '10px 20px',
+                border: 'none',
+                borderRadius: '5px',
+              }}
+            >
+              I Don't Know This
+            </button>
+            <button
+              onClick={handleNextClick}
+              style={{
+                backgroundColor: 'blue',
+                color: 'white',
+                margin: '5px',
+                padding: '10px 20px',
+                border: 'none',
+                borderRadius: '5px',
+                marginRight: '150px',
+              }}
+            >
+              Next
+            </button>
+          </div>
         </div>
-      ))}
-    </div>
-    <div className="row">
-      <div className="col text-center">
-        <div className="btn-container">
-          <button
-            onClick={handleKnowClick}
-            style={{
-              backgroundColor:   'green' ,
-              color: 'white',
-              margin: '5px',
-              padding: '10px 20px',
-              border: 'none',
-              borderRadius: '5px',
-              marginLeft:'180px',
-            }}
-          >
-            I Know This
-          </button>
-          <button
-            onClick={handleDontKnowClick}
-            style={{
-              backgroundColor:  'red',
-              color: 'white',
-              margin: '5px',
-              padding: '10px 20px',
-              border: 'none',
-              borderRadius: '5px',
-              marginRight:'150px',
-            }}
-          >
-            I Don't Know This
-          </button>
+      </div>
+      <div className="row">
+        <div className="col text-center margin-top-20">
+          <h4>Your Score: {score} out of {flashcards.length}</h4>
         </div>
       </div>
     </div>
-    <div className="row">
-      <div className="col text-center margin-top-20">
-        <h4>Your Score: {score} out of {flashcards.length}</h4>
-      </div>
-    </div>
-  </div>
-);
+  );
 };
-
-  
 
 export default FlashcardList;

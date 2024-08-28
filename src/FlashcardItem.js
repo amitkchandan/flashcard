@@ -8,13 +8,13 @@ const FlashcardItem = ({ serialNumber, question, answer, flipped, toggleFlip }) 
     <div className="flashcard-container" onClick={toggleFlip}>
       <div className={`flashcard ${flipped ? 'flipped' : ''}`}>
         <div className="front cards">
-          <div className="card-title">Question</div>
+          <div className="card-title">Term</div>
           <div className="card-text">{`Q${serialNumber}.${question}`}</div>
         </div>
         <div className="back cards">
           
-          <div className="card-title">Answer</div>
-          <div className="card-text">{answer}</div>
+          <div className="card-title">Definition</div> 
+          <div className="card-text">{answer}</div> 
         </div>
       </div>
     </div>

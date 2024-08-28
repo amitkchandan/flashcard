@@ -2,11 +2,9 @@
 
 * {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  
 }
 
 .flashcard-container {
- 
   perspective: 2000px;
   max-height: 2000px;
   max-width: 550px;
@@ -41,12 +39,12 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-  padding: 20px ;
+  padding: 20px;
 }
 
 .back {
   transform: rotateY(180deg);
-margin-right: 100px;
+  margin-right: 100px;
 }
 
 .card-title {
@@ -55,7 +53,7 @@ margin-right: 100px;
 }
 
 .card-text {
-  font-size: 1.2em;
+  font-size: 2em; /* Increased font size for the Term content */
   text-align: center;
 }
 
@@ -86,6 +84,7 @@ margin-right: 100px;
     width: 60px;
   }
 }
+
 /* FlashcardList.css */
 
 .container-full-height {
@@ -135,7 +134,7 @@ margin-right: 100px;
   padding: 10px 50px;
   border: none;
   color: white;
- background-color: #009dff; 
+  background-color: #009dff;
   cursor: pointer;
 }
 
@@ -147,10 +146,14 @@ margin-right: 100px;
   background-color: red;
 }
 
-.btn-normal {
-background-color: #009dff;
+.btn-prev-next {
+  background-color: #6c757d; /* Default color for Previous and Next buttons */
+  color: white;
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
 }
-
 
 .margin-top-20 {
   margin-top: 20px;
@@ -160,7 +163,6 @@ background-color: #009dff;
 
 @media (max-width: 576px) {
   .btn-container {
- 
     gap: 10px;
   }
 
@@ -169,7 +171,8 @@ background-color: #009dff;
     flex: 0 0 100%;
     max-width: 100%;
   }
-  .margin-top-20{
-margin-top: 100px;
+
+  .margin-top-20 {
+    margin-top: 100px;
   }
 }
