@@ -1,3 +1,56 @@
 body{
     background: rgb(230, 231, 246);
 }
+/* Updated styles for App.css */
+.btn-container {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 140px;
+  }
+  
+  .btn {
+    padding: 10px 100px; /* Increased width to ensure text fits */
+    border: none;
+    color: white;
+    background-color: #009dff;
+    cursor: pointer;
+    text-align: center; /* Center text within button */
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+  }
+  
+  .btn-know {
+    background-color: green;
+   
+    
+  }
+  
+  .btn-dont-know {
+    background-color: red;
+    
+  }
+  
+  .btn-prev-next {
+    background-color: rgb(71, 72, 172);
+    color: white;
+    margin: 5px;
+    padding: 10px 30px; /* Increased width of Previous and Next buttons */
+    border: none;
+    border-radius: 1px;
+    text-align: center; /* Center text within button */
+   /* Prevent text from wrapping to the next line */
+  }
+  /* Font size for the term content (front side) */
+.front .card-text {
+    font-size: 2em; /* Large font size for the term side */
+    text-align: center; /* Centers text horizontally */
+  }
+  
+  /* Font size for the definition content (back side) */
+  .back .card-text {
+    font-size: 20px; /* Smaller font size for the definition side */
+    text-align: center; /* Centers text horizontally */
+    margin-bottom: 150px;
+  }
+  

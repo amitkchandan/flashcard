@@ -7,7 +7,7 @@
 .flashcard-container {
   perspective: 2000px;
   max-height: 2000px;
-  max-width: 550px;
+  max-width: 750px;
   margin-top: -160px;
   display: flex;
   justify-content: center;
@@ -18,7 +18,7 @@
 .flashcard {
   width: 1000px;
   height: 1000%;
-  transition: transform 0.5s;
+  transition: transform 0.3s;
   transform-style: preserve-3d;
   position: relative;
 }
@@ -66,10 +66,13 @@
   .flashcard-container {
     max-width: 300px;
   }
-
-  .front, .back {
-    font-size: 14px;
-    padding: 10px;
+.back .card-text {
+  font-size: 1em; /* Smaller font size for the definition side */
+  text-align: center; /* Centers text horizontally */
+}
+  .front .card-text {
+    font-size: 2em; 
+    text-align: center;
   }
 
   .card-title {
@@ -128,10 +131,12 @@
   gap: 16px;
   align-items: center;
   margin-top: 20px;
+  width: 100%;
+
 }
 
 .btn {
-  padding: 10px 50px;
+  padding: 20px 50px;
   border: none;
   color: white;
   background-color: #009dff;
@@ -140,17 +145,31 @@
 
 .btn-know {
   background-color: green;
+  padding: 10px 20px; /* Increased width to ensure text fits */
+  border: none;
+  color: white;
+  cursor: pointer;
+  text-align: center; /* Center text within button */
+  white-space: nowrap; /* Prevent text from wrapping to the next line */
 }
 
 .btn-dont-know {
   background-color: red;
+  padding: 10px 20px; /* Increased width to ensure text fits */
+  border: 1px;
+  color: white;
+  cursor: pointer;
+  text-align: center; /* Center text within button */
+  white-space: nowrap; /* Prevent text from wrapping to the next line */
+
 }
 
+
 .btn-prev-next {
-  background-color: #6c757d; /* Default color for Previous and Next buttons */
+  background-color: rgb(71, 72, 172); /* Default color for Previous and Next buttons */
   color: white;
   margin: 5px;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border: none;
   border-radius: 5px;
 }
@@ -175,4 +194,16 @@
   .margin-top-20 {
     margin-top: 100px;
   }
+}
+
+/* Font size for the term content (front side) */
+.front .card-text {
+  font-size: 2em; /* Large font size for the term side */
+  text-align: center; /* Centers text horizontally */
+}
+
+/* Font size for the definition content (back side) */
+.back .card-text {
+  font-size: 20px; /* Smaller font size for the definition side */
+  text-align: center; /* Centers text horizontally */
 }

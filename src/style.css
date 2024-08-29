@@ -30,7 +30,7 @@ button.navbar-toggler + .navbar-collapse {
 /* FlashcardList.css */
 
 .flashcard-item {
-  height: 170px; /* Ensure all cards have the same height */
+  height: 200px; /* Ensure all cards have the same height */
 }
 
 .button-container {
@@ -40,8 +40,9 @@ button.navbar-toggler + .navbar-collapse {
 .button-spacing {
   margin-right: 10px;
 }
+
 .flashcard {
-  width: 750px; /* Adjust this value to increase the width */
+  width: 1000px; /* Adjust this value to increase the width */
   height: 200px; /* You can adjust the height as well */
   position: relative;
   transform-style: preserve-3d;
