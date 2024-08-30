@@ -1042,18 +1042,17 @@ const FlashcardList = ({ category }) => {
             ];
 
             const flashcards = category ? allFlashcards.filter(card => card.category === category) : allFlashcards;
-          
             const [currentPage, setCurrentPage] = useState(0);
             const cardsPerPage = 1;
             const [score, setScore] = useState(0);
             const [isFlipped, setIsFlipped] = useState(false);
-            const [hasAnswered, setHasAnswered] = useState(false); // Track if the user has answered
+            const [hasAnswered, setHasAnswered] = useState(false);
+            const [showPopup, setShowPopup] = useState(false); // Add state for popup visibility
           
             useEffect(() => {
-              // Reset the score when the category changes
               setScore(0);
               setHasAnswered(false);
-              setIsFlipped(false);// Ensure flashcard shows term side first
+              setIsFlipped(false);
             }, [category]);
           
             useEffect(() => {
@@ -1061,10 +1060,15 @@ const FlashcardList = ({ category }) => {
             }, [score, category]);
           
             const handleNextClick = () => {
-              if ((currentPage + 1) * cardsPerPage < flashcards.length) {
-                setCurrentPage(currentPage + 1);
-                setIsFlipped(false);
-                setHasAnswered(false); // Reset hasAnswered when moving to the next card
+              if (!hasAnswered) {
+                setShowPopup(true); // Show popup if no response is selected
+              } else {
+                if ((currentPage + 1) * cardsPerPage < flashcards.length) {
+                  setCurrentPage(currentPage + 1);
+                  setIsFlipped(false);
+                  setHasAnswered(false);
+                  setShowPopup(false); // Hide popup when moving to the next card
+                }
               }
             };
           
@@ -1072,21 +1076,28 @@ const FlashcardList = ({ category }) => {
               if (currentPage > 0) {
                 setCurrentPage(currentPage - 1);
                 setIsFlipped(false);
-                setHasAnswered(false); // Reset hasAnswered when moving to the previous card
+                setHasAnswered(false);
+                setShowPopup(false); // Hide popup when moving to the previous card
               }
             };
           
             const handleKnowClick = () => {
-              if (!hasAnswered) { // Only increase score if the user hasn't already answered
+              if (!hasAnswered) {
                 setScore(score + 1);
                 setHasAnswered(true);
+                setShowPopup(false); // Hide popup when a response is selected
               }
               setIsFlipped(true);
             };
           
             const handleDontKnowClick = () => {
               setIsFlipped(true);
-              setHasAnswered(true); // Mark the card as answered even if the answer was not known
+              setHasAnswered(true);
+              setShowPopup(false); // Hide popup when a response is selected
+            };
+          
+            const handleClosePopup = () => {
+              setShowPopup(false);
             };
           
             const currentFlashcards = flashcards.slice(currentPage * cardsPerPage, (currentPage + 1) * cardsPerPage);
@@ -1141,6 +1152,16 @@ const FlashcardList = ({ category }) => {
                     <h4>Your Score: {score} out of {flashcards.length}</h4>
                   </div>
                 </div>
+          
+                {/* Popup Component */}
+                {showPopup && (
+                  <div className="popup-overlay">
+                    <div className="popup-content">
+                      <h2>Please choose a response before moving to the next card.</h2>
+                      <button onClick={handleClosePopup} className="btn-popup-close">Close</button>
+                    </div>
+                  </div>
+                )}
               </div>
             );
           };
