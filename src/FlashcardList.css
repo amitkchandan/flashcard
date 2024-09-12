@@ -112,4 +112,28 @@
     font-size: 20px;
     text-align: center;
   }
+  @media (max-width: 768px) {
+    .flashcard-item {
+      height: auto; /* Adjust height for mobile */
+    }
+  
+    .btn-container {
+      flex-direction: column; /* Stack buttons vertically on small screens */
+      align-items: center; /* Center align buttons */
+    }
+  
+    .btn {
+      width: 100%; /* Full width buttons */
+      padding: 10px; /* Adjust padding for mobile */
+      margin: 5px 0; /* Adjust margins */
+    }
+  
+    .flashcard-wrapper {
+      flex-direction: column; /* Stack items vertically on mobile */
+    }
+  
+    .flashcard-buttons {
+      margin-top: 10px; /* Adjust margin */
+    }
+  } 
   
